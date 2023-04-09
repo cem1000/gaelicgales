@@ -182,6 +182,37 @@ def append_values_to_sheet(sheet_id, range_name, values):
         print(f"An error occurred: {error}")
         return None
 
+def get_wikimedia_image_url(search_term):
+    search_url = "https://commons.wikimedia.org/w/api.php"
+    params = {
+        "action": "query",
+        "format": "json",
+        "list": "search",
+        "srsearch": search_term,
+        "srnamespace": 6,  # File namespace
+        "srlimit": 1,  # Limit search to one result
+    }
+    response = requests.get(search_url, params=params)
+    data = response.json()
+    
+    if data['query']['search']:
+        title = data['query']['search'][0]['title']
+        image_info_url = "https://commons.wikimedia.org/w/api.php"
+        params = {
+            "action": "query",
+            "format": "json",
+            "titles": title,
+            "prop": "imageinfo",
+            "iiprop": "url",
+        }
+        response = requests.get(image_info_url, params=params)
+        data = response.json()
+        page = next(iter(data['query']['pages'].values()))
+        
+        return page['imageinfo'][0]['url']
+
+    return None
+
 # Function to process a county
 def process_county(lat, long, city):
     weather_data = get_weather_data(lat, long)
@@ -191,12 +222,16 @@ def process_county(lat, long, city):
     timestamp_tweet_created_at = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     lat_long_str = str(format_location(lat, long))
 
+    search_term = city
+    image_url = get_wikimedia_image_url(search_term)
+
     append_values_to_sheet(sheet_id, 'Tweets!A2:P', [
         timestamp_tweet_created_at,
         parsed_weather_data['day_of_week'],
         parsed_weather_data['temperature'],
         lat_long_str,
         city,
+        image_url,
         wind_direction_description(parsed_weather_data['wind_direction']),
         parsed_weather_data['wind_speed'],
         parsed_weather_data['cloudiness'],
@@ -209,6 +244,7 @@ def process_county(lat, long, city):
         len(tweet),
         tweet
     ])
+
 # Function to process all counties
 def process_all_counties(filename):
     with open(filename, mode='r') as csvfile:
