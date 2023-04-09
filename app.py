@@ -6,25 +6,21 @@ import re
 import os
 import csv
 import datetime
+import json
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-# Your existing imports and setup for Google Sheets API and OpenAI API
-credentials = service_account.Credentials.from_service_account_file(
-    'C:\\Users\\admin\\Desktop\\python\\sheets.json',
-    scopes=['https://www.googleapis.com/auth/spreadsheets']
-)
+# Load credentials from secrets file
+with open('secrets.json') as f:
+    credentials = json.load(f)
 
-# Build the API client
-sheets_api = build('sheets', 'v4', credentials=credentials)
-
-# Google Sheet ID
-sheet_id = '10aq42tgz4bjAORAYSykXAy1PGZRGN2pr_gSb1ai79cg'
-
+# Set up Google Sheets API credentials
+creds = service_account.Credentials.from_service_account_info(credentials, scopes=['https://www.googleapis.com/auth/spreadsheets'])
+sheets_api = build('sheets', 'v4', credentials=creds)
 
 # Set up OpenAI API credentials
-openai.api_key = "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"
+openai.api_key = credentials['openai_key']
 MODEL_TYPE = 'gpt-3.5-turbo'
 
 # Define list of Irish figures to randomly select from
