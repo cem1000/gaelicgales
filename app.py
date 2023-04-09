@@ -12,7 +12,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 # Load credentials from secrets file
-credentials = json.loads(os.environ['SECRETS_JSON'])
+credentials = json.loads(os.environ['SECRETS'])
 
 # Set up Google Sheets API credentials
 creds = service_account.Credentials.from_service_account_info(credentials, scopes=['https://www.googleapis.com/auth/spreadsheets'])
