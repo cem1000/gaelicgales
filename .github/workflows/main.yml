@@ -1,8 +1,6 @@
-name: Daily Job
-
 on:
   schedule:
-    - cron: '00 33 * * *' # Runs every day at 11:15 AM Irish time
+    - cron: '55 15 * * *' # Runs every day at 11:15 AM Irish time
 
 jobs:
   build:
