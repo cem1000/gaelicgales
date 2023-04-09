@@ -1,0 +1,33 @@
+city,lat,lng,country,iso2,admin_name,capital,Flag
+Dublin,53.3497,-6.2603,Ireland,IE,Dublin,primary,1
+Cork,51.9,-8.4731,Ireland,IE,Cork,admin,1
+Galway,53.2729,-9.0418,Ireland,IE,Galway,admin,1
+Limerick,52.6653,-8.6238,Ireland,IE,Limerick,admin,1
+Waterford,52.2583,-7.119,Ireland,IE,Waterford,admin,1
+Drogheda,53.7139,-6.3503,Ireland,IE,Louth,,0
+Dún Dealgan,54.009,-6.4049,Ireland,IE,Louth,admin,0
+Swords,53.4597,-6.2181,Ireland,IE,Fingal,admin,0
+Blackrock,53.3015,-6.1778,Ireland,IE,Dún Laoghaire-Rathdown,,0
+Tralee,52.2675,-9.6962,Ireland,IE,Kerry,admin,0
+Carlow,52.8306,-6.9317,Ireland,IE,Carlow,admin,0
+Ennis,52.8463,-8.9807,Ireland,IE,Clare,admin,0
+Dunleary,53.3,-6.14,Ireland,IE,Dún Laoghaire-Rathdown,admin,0
+Kilkenny,52.6477,-7.2561,Ireland,IE,Kilkenny,admin,0
+Naas,53.2158,-6.6669,Ireland,IE,Kildare,admin,0
+Sligo,54.2667,-8.4833,Ireland,IE,Sligo,admin,0
+Monaghan,54.2479,-6.9708,Ireland,IE,Monaghan,admin,0
+Ros Comáin,53.6333,-8.1833,Ireland,IE,Roscommon,admin,0
+Mullingar,53.5333,-7.35,Ireland,IE,Westmeath,admin,0
+Tallaght,53.2878,-6.3411,Ireland,IE,South Dublin,admin,0
+Wicklow,52.9779,-6.033,Ireland,IE,Wicklow,admin,0
+Clonmel,52.355,-7.7039,Ireland,IE,Tipperary,admin,0
+Wexford,52.3342,-6.4575,Ireland,IE,Wexford,admin,0
+Longford,53.727,-7.7998,Ireland,IE,Longford,admin,0
+Trim,53.555,-6.7917,Ireland,IE,Meath,admin,0
+Carrick on Shannon,53.9469,-8.09,Ireland,IE,Leitrim,admin,0
+Tullamore,53.2667,-7.5,Ireland,IE,Offaly,admin,0
+Nenagh,52.8619,-8.1967,Ireland,IE,Tipperary,admin,0
+An Cabhán,53.9908,-7.3606,Ireland,IE,Cavan,admin,0
+Port Laoise,53.0309,-7.3008,Ireland,IE,Laois,admin,0
+Castlebar,53.85,-9.3,Ireland,IE,Mayo,admin,0
+Lifford,54.8356,-7.4779,Ireland,IE,Donegal,admin,0
