@@ -2,7 +2,7 @@ name: Daily Job
 
 on:
   schedule:
-    - cron: '0 9 * * *' # Runs every day at 9 AM Irish time
+    - cron: '15 11 * * *' # Runs every day at 11:15 AM Irish time
 
 jobs:
   build:
