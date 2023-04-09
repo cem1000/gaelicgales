@@ -24,7 +24,7 @@ sheet_id = '10aq42tgz4bjAORAYSykXAy1PGZRGN2pr_gSb1ai79cg'
 
 
 # Set up OpenAI API credentials
-openai.api_key = "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"
+openai.api_key = "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"
 MODEL_TYPE = 'gpt-3.5-turbo'
 
 # Define list of Irish figures to randomly select from
