@@ -1,6 +1,10 @@
-openai
-google-auth
-google-auth-oauthlib
-google-auth-httplib2
-google-api-python-client
-requests
+streamlit==1.18.1
+openai==0.27.2
+youtube-transcript-api==0.4.1
+streamlit-bokeh-events==0.1.2
+bokeh==2.4.3
+gspread==5.7.2
+google-auth==2.3.0
+google-auth-oauthlib==0.4.6
+google-auth-httplib2==0.4.6
+google-api-python-client==2.24.0
