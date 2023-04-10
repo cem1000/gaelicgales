@@ -34,13 +34,9 @@ irish_figures = [
     'Seamus Heaney',
     'Patrick Kavanagh',
     'Conor Mcgregor',
-    'Bryan Mills (Liam neeson) from Taken',
-    'Michael D. Higgins',
-    'Brendan Gleeson',
-    'Hozier',
     'Seamus Heaney',
     'C.S. Lewis',
-    'Nidge from Love/Hate'
+    "Father Ted"
 ]
 
 
