@@ -254,7 +254,6 @@ def process_county(lat, long, city):
     tweet, response, truncated_response = generate_tweet(parsed_weather_data, city)
 
     # Generate the DALL-E prompt using the truncated response
-    selected_art_style = random_art_style()
     dall_e_prompt, prompt_response = generate_dalle_prompt(truncated_response, city, selected_art_style)
 
     # Generate the DALL-E image using the generated prompt
