@@ -220,7 +220,7 @@ def image_cost_calc(image_size):
         raise ValueError(f"Invalid image size: {image_size}")
 
 def generate_dalle_prompt(truncated_response, city, selected_art_style):
-    prompt = f"Generate a DALL-E image description for an {selected_art_style} artwork of {city} based on the following weather description:"
+    prompt = f"Generate a descriptive DALL-E image prompt/description for a {selected_art_style} artwork of {city} based on the following weather description:"
 
     prompt_response = openai.ChatCompletion.create(
         model=MODEL_TYPE,
