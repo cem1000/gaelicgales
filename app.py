@@ -228,6 +228,7 @@ def process_county(lat, long, city):
         lat_long_str,
         city,
         image_url,
+        selected_figure,
         wind_direction_description(parsed_weather_data['wind_direction']),
         parsed_weather_data['wind_speed'],
         parsed_weather_data['cloudiness'],
