@@ -39,11 +39,39 @@ irish_figures = [
     "Father Ted"
 ]
 
+def random_art_style():
+    art_styles = [
+        "Surrealism",
+        "Abstract Expressionism",
+        "Impressionism",
+        "Post-Impressionism",
+        "Expressionism",
+        "Fauvism",
+        "Cubism",
+        "Pop Art",
+        "Dadaism",
+        "Futurism",
+        "Minimalism",
+        "Realism",
+        "Romanticism",
+        "Baroque",
+        "Rococo",
+        "Neoclassicism",
+        "Byzantine",
+        "Gothic",
+        "Renaissance",
+        "Mannerism"
+    ]
+    return random.choice(art_styles)
+
 
 # Randomly select an Irish figure
 selected_figure = irish_figures[random.randint(0, len(irish_figures)-1)]
 
-# define a function
+# Randomly select an Art Style
+selected_art_style = random_art_style()
+
+# define a function for lat and long
 def format_location(lat, long):
     return {'lat': str(lat), 'long': str(long)}
 
@@ -162,7 +190,8 @@ def generate_tweet(weather_data, city):
 
     # Format and return the generated tweet
     tweet = truncated_response + f"\n#{city.replace(' ', '')}Weather #WhoamI"
-    return tweet, response
+    return tweet, response, truncated_response
+    
 
 # Function to append values to Google Sheet
 def append_values_to_sheet(sheet_id, range_name, values):
@@ -178,48 +207,62 @@ def append_values_to_sheet(sheet_id, range_name, values):
         print(f"An error occurred: {error}")
         return None
 
-def get_wikimedia_image_url(search_term):
-    search_url = "https://commons.wikimedia.org/w/api.php"
-    params = {
-        "action": "query",
-        "format": "json",
-        "list": "search",
-        "srsearch": search_term,
-        "srnamespace": 6,  # File namespace
-        "srlimit": 1,  # Limit search to one result
+def image_cost_calc(image_size):
+    cost_per_image = {
+        '1024x1024': 0.020,
+        '512x512': 0.018,
+        '256x256': 0.016,
     }
-    response = requests.get(search_url, params=params)
-    data = response.json()
     
-    if data['query']['search']:
-        title = data['query']['search'][0]['title']
-        image_info_url = "https://commons.wikimedia.org/w/api.php"
-        params = {
-            "action": "query",
-            "format": "json",
-            "titles": title,
-            "prop": "imageinfo",
-            "iiprop": "url",
-        }
-        response = requests.get(image_info_url, params=params)
-        data = response.json()
-        page = next(iter(data['query']['pages'].values()))
-        
-        return page['imageinfo'][0]['url']
+    if image_size in cost_per_image:
+        return cost_per_image[image_size]
+    else:
+        raise ValueError(f"Invalid image size: {image_size}")
 
-    return None
+def generate_dalle_prompt(truncated_response, city, selected_art_style):
+    prompt = f"Generate a DALL-E image description for an {selected_art_style} artwork of {city} based on the following weather description:"
+
+    prompt_response = openai.ChatCompletion.create(
+        model=MODEL_TYPE,
+        messages=[
+            {"role": "system", "content": prompt},
+            {"role": "user", "content": truncated_response},
+        ],
+        max_tokens=100
+    )
+    
+    dall_e_prompt = prompt_response.choices[0].message['content'].strip()
+    return dall_e_prompt, prompt_response
+
+def generate_dalle_image(prompt):
+    size="256x256"
+    response = openai.Image.create(
+        prompt=prompt,
+        n=1,
+        size=size
+    )
+
+    image_cost = image_cost_calc(size)
+    dalle_image_url = response['data'][0]['url']
+    return dalle_image_url, image_cost
+
 
 # Function to process a county
 def process_county(lat, long, city):
     weather_data = get_weather_data(lat, long)
     parsed_weather_data = parse_weather_data(weather_data)
-    tweet, response = generate_tweet(parsed_weather_data, city)
+    tweet, response, truncated_response = generate_tweet(parsed_weather_data, city)
+
+    # Generate the DALL-E prompt using the truncated response
+    selected_art_style = random_art_style()
+    dall_e_prompt, prompt_response = generate_dalle_prompt(truncated_response, city, selected_art_style)
+
+    # Generate the DALL-E image using the generated prompt
+    dalle_image_url, image_cost = generate_dalle_image(dall_e_prompt)
 
     timestamp_tweet_created_at = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     lat_long_str = str(format_location(lat, long))
 
-    search_term = city
-    image_url = get_wikimedia_image_url(search_term)
 
     append_values_to_sheet(sheet_id, 'Tweets!A2:P', [
         timestamp_tweet_created_at,
@@ -227,7 +270,7 @@ def process_county(lat, long, city):
         parsed_weather_data['temperature'],
         lat_long_str,
         city,
-        image_url,
+        dalle_image_url,
         selected_figure,
         wind_direction_description(parsed_weather_data['wind_direction']),
         parsed_weather_data['wind_speed'],
@@ -239,8 +282,16 @@ def process_county(lat, long, city):
         len(prompt),
         len(response.choices[0]['message']['content'].strip()),
         len(tweet),
-        tweet
+        tweet,
+        selected_art_style,
+        dall_e_prompt,
+        image_cost,
+        prompt_response['usage']['prompt_tokens'],
+        prompt_response['usage']['completion_tokens'],
+        len(dall_e_prompt),
+        len(prompt_response.choices[0]['message']['content'].strip())
     ])
+
 
 # Function to process all counties
 def process_all_counties(filename):
