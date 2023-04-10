@@ -228,7 +228,7 @@ def generate_dalle_prompt(truncated_response, city, selected_art_style):
             {"role": "system", "content": prompt},
             {"role": "user", "content": truncated_response},
         ],
-        max_tokens=100
+        max_tokens=180
     )
     
     dall_e_prompt = prompt_response.choices[0].message['content'].strip()
