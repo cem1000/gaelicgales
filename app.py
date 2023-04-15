@@ -26,16 +26,13 @@ sheet_id = "10aq42tgz4bjAORAYSykXAy1PGZRGN2pr_gSb1ai79cg"
 
 # Define list of Irish figures to randomly select from
 irish_figures = [ 
-    'Bryan Mills (liam neeson) from Taken',
     'James Joyce',
     'Oscar Wilde',
     'Samuel Beckett',
     'W.B. Yeats',
     'Seamus Heaney',
     'Patrick Kavanagh',
-    'Conor Mcgregor',
     'Seamus Heaney',
-    'C.S. Lewis',
     "Father Ted"
 ]
 
