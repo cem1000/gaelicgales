@@ -30,7 +30,6 @@ irish_figures = [
     'Oscar Wilde',
     'Samuel Beckett',
     'W.B. Yeats',
-    'Seamus Heaney',
     'Patrick Kavanagh',
     'Seamus Heaney'
 ]
@@ -62,7 +61,7 @@ def random_art_style():
 
 
 # Randomly select an Irish figure
-selected_figure = irish_figures[random.randint(0, len(irish_figures)-1)]
+selected_figure = random.choice(irish_figures)
 
 # Randomly select an Art Style
 selected_art_style = random_art_style()
@@ -76,6 +75,26 @@ def get_weather_data(lat, long):
     url = 'http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast'
     response = requests.get(url, params=format_location(lat, long))
     return ET.fromstring(response.content)
+
+
+def translate_beaufort_wind_scale_norwegian_to_english(term):
+    beaufort_scale_norwegian_to_english = {
+        "Stille": "Calm",
+        "Flau vind": "Light air",
+        "Svak vind": "Light breeze",
+        "Lett bris": "Gentle breeze",
+        "Laber bris": "Moderate breeze",
+        "Frisk bris": "Fresh breeze",
+        "Liten kuling": "Strong breeze",
+        "Stiv kuling": "Near gale",
+        "Sterk kuling": "Gale",
+        "Liten storm": "Strong gale",
+        "Full storm": "Storm",
+        "Sterk storm": "Violent storm",
+        "Orkan": "Hurricane"
+    }
+
+    return beaufort_scale_norwegian_to_english.get(term, "Unknown term")
 
 def bucket_cloudiness(percent):
     if percent == 0:
@@ -130,6 +149,7 @@ def parse_weather_data(root):
     temperature = root.findall('.//temperature')[-1].attrib['value']
     wind_direction = root.findall('.//windDirection')[-1].attrib['name']
     wind_speed = root.findall('.//windSpeed')[-1].attrib['name']
+    wind_speed = translate_beaufort_wind_scale_norwegian_to_english(wind_speed)
     cloudiness = root.findall('.//cloudiness')[-1].attrib['percent']
     cloudiness_int = float(cloudiness)
     humidity = root.findall('.//humidity')[-1].attrib['value']
