@@ -32,8 +32,7 @@ irish_figures = [
     'W.B. Yeats',
     'Seamus Heaney',
     'Patrick Kavanagh',
-    'Seamus Heaney',
-    "Father Ted"
+    'Seamus Heaney'
 ]
 
 def random_art_style():
