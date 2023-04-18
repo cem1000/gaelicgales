@@ -22,7 +22,7 @@ sheets_api = build('sheets', 'v4', credentials=creds)
 openai.api_key = credentials['openai_key']
 MODEL_TYPE = 'gpt-3.5-turbo'
 
-sheet_id = "10aq42tgz4bjAORAYSykXAy1PGZRGN2pr_gSb1ai79cg"
+sheet_id = "1QkpYGqnrmgMN2scXpMR9t6PGAFhVYf2VbIWI2mu_m_c"
 
 # Define list of Irish figures to randomly select from
 irish_figures = [ 
