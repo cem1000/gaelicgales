@@ -1,8 +1,18 @@
-# This program creates weather-inspired tweets in the style of famous Irish literary figures and generates related images using DALL-E. It features:
+# Weather-Inspired Tweet & Image Generator
 
-Random selection of Irish literary figures and art styles.
-Weather data collection for specific locations.
-Generation of tweets using the OpenAI API.
-DALL-E image creation based on the tweet.
-Integration with Google Sheets for data logging.
-It includes functions for initializing APIs, utility operations (e.g., weather data parsing, art style randomization), tweet and image generation, and Google Sheets operations. To run, ensure API credentials are set, have a counties.csv file ready, and execute the process_all_counties('counties.csv') function with necessary modules installed.
+## Features
+- Random selection of Irish literary figures & art styles.
+- Fetches weather data for specified locations.
+- Generates tweets using OpenAI in the style of selected figures.
+- Creates images with DALL-E based on tweets.
+- Logs data in Google Sheets.
+
+## Components
+- **API Setup:** Google Sheets, OpenAI.
+- **Utility Functions:** Data handling, art style selection.
+- **Main Functions:** Fetch & parse weather data, generate tweet & image, log data.
+
+## Execution
+1. Set API credentials and prepare `counties.csv`.
+2. Install required Python modules.
+3. Run with `process_all_counties('counties.csv')`.
